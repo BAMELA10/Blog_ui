@@ -1,0 +1,28 @@
+<div class="navbar">
+    <mat-toolbar color="#212529">
+        <div class="toogle">
+            <button mat-icon-button class="menu-button">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span> {{ title }} </span>
+        </div>
+
+        <form class="search" (ngSubmit)="Search()">
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="Search" type="text" >
+            </mat-form-field>
+            
+            <button mat-button color="dark" type="submit">
+                <mat-icon matSuffix (click)="Search()">search</mat-icon>
+            </button>
+        </form>
+
+       <span class="spacer"></span>
+
+        <div class="username" *ngIf="username">
+            <mat-icon>account_circle</mat-icon>
+            <span class="username-text"> {{ username }} </span>
+        </div>
+
+    </mat-toolbar>
+</div>
