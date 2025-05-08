@@ -1,28 +1,82 @@
-<div class="navbar">
-    <mat-toolbar color="#212529">
-        <div class="toogle">
-            <button mat-icon-button class="menu-button">
-                <mat-icon>menu</mat-icon>
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid justify-content-between">
+        <p class="navbar-brand" href="#">
+            <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            >
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <span> {{ title }} </span>
+            TestBlog
+        </p>
+        <div class="col-md-6 text-center d-none d-lg-block" *ngIf="isPost">
+            <form class="d-flex d-inline">
+                <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                />
+                <button class="btn btn-outline-success" type="submit">
+                    <mat-icon class="align-middle">search</mat-icon>
+                </button>
+            </form>
         </div>
-
-        <form class="search" (ngSubmit)="Search()">
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Search" type="text" >
-            </mat-form-field>
-            
-            <button mat-button color="dark" type="submit">
-                <mat-icon matSuffix (click)="Search()">search</mat-icon>
-            </button>
-        </form>
-
-       <span class="spacer"></span>
-
-        <div class="username" *ngIf="username">
-            <mat-icon>account_circle</mat-icon>
-            <span class="username-text"> {{ username }} </span>
+        <div class="navbar-brand col-md-2 text-light" *ngIf="username">
+            <p>{{ username }}</p>
         </div>
-
-    </mat-toolbar>
-</div>
+        <div
+            class="offcanvas offcanvas-start bg-dark"
+            tabindex="-1"
+            id="offcanvasNavbar"
+            data-bs-scroll="true" 
+            data-bs-backdrop="false"
+            aria-labelledby="offcanvasNavbarLabel"
+        >
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                    <span class="navbar-toggler-icon"></span>
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close text-reset bg-light"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="row justify-content-center">
+                    <form class="d-flex d-block d-lg-none">
+                        <input
+                            class="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                        />
+                        <button class="btn btn-outline-success" type="submit">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </form>
+                    <button class="btn btn-outline-success col-xl-4 col-sm-4 col-md-4 col-lg-4 mt-3 " type="submit">
+                        <mat-icon class="d-inline align-middle">add</mat-icon>
+                        <p class="d-inline align-middle">Add Post</p>
+                    </button>
+                </div>
+                <ul class="navbar-nav text-center flex-grow-1 pe-3">
+                    <li class="nav-item mt-5 fs-1" *ngFor="let item of menu">
+                        <a
+                            class="nav-link text-light"
+                            aria-current="page"
+                            [routerLink]="item.link"
+                            routerLinkActive="active"
+                            > {{item.name}} </a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
