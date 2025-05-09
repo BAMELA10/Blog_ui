@@ -15,8 +15,10 @@ export class NavbarComponent {
 
   @Input() username?: string;
   @Input() isPost?: boolean;
+  
   public title = 'TestBlog';
   public menu = [
+    { name: 'Home', link: '/home' },
     { name: 'Posts', link: '/posts' },
     { name: 'Pages', link: '/pages' },
     { name: 'Comments', link: '/comments' },
