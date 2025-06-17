@@ -6,5 +6,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApicallService {
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
+
+  public getAllPost() {
+    //
+  }
+  public getAllPages() {
+    //
+  }
+
+  public getAllComment() {
+    //
+  }
 }

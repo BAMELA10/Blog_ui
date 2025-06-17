@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-menu',
@@ -9,11 +8,13 @@ import { Router } from '@angular/router';
 export class MainMenuComponent implements OnInit {
 
   public menubtn = [
-    { name: 'Posts', link: '/posts', icon: 'web' },
-    { name: 'Pages', link: '/pages', icon: 'fa-solid fa-file' },
-    { name: 'Comments', link: '/comments', icon: 'fa-solid fa-comment' },
-    { name: 'Me', link: '/me', icon: 'fa-solid fa-user' }
+    { name: 'Posts', link: '/posts', icon: 'article' },
+    { name: 'Pages', link: '/pages', icon: 'web_stories' },
+    { name: 'Comments', link: '/comments', icon: 'comment_bank' },
+    { name: 'Profile', link: '/me', icon: 'person' }
   ]
+  public nbPost = 12;
+  public nbComment = 10;
 
   constructor() { }
 
