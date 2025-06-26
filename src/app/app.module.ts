@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BlogModuleModule } from './blog-module/blog-module.module';
 import { MatIconModule } from '@angular/material/icon';
+import { PostModuleModule } from './post-module/post-module.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
     SharedModule,
     HttpClientModule,
     BlogModuleModule,
-    MatIconModule
+    MatIconModule,
+    PostModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
