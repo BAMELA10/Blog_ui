@@ -1,1 +1,103 @@
-<p>main-menu works!</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-12 col-lg-12 mt-5">
+      <div class="card">
+        <div class="card-body text-center">
+          <h4 class="fs-1 card-title">Test</h4>
+          <div class="card-text text-center d-block d-md-none">
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+          </div>
+          <div class="card-text text-center d-none d-md-block">
+            <div class="row justify-content-center align-items-center g-2">
+              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div
+      class="col-sm-12 col-md-12 col-lg-6 mt-2"
+      *ngFor="let items of menubtn"
+    >
+      <a
+        name=""
+        id=""
+        class="btn btn-outline-dark rounded-0"
+        [routerLink]="[items.link]"
+        routerLinkActive="active"
+        role="button"
+      >
+        <div class="icon">
+          <mat-icon>{{ items.icon }}</mat-icon>
+        </div>
+        <h2 class="fs-3 align-middle">{{ items.name }}</h2>
+      </a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-12 col-lg-6 mt-5">
+      <div class="card">
+        <div class="card-body text-center">
+          <h4 class="fs-1 card-title">Post</h4>
+          <div class="card-text text-center d-block d-md-none">
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+          </div>
+          <div class="card-text text-center d-none d-md-block">
+            <div class="row justify-content-center align-items-center g-2">
+              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-6 mt-5">
+      <div class="card">
+        <div class="card-body text-center">
+          <h4 class="fs-1 card-title">Pages</h4>
+          <div class="card-text text-center d-block d-md-none">
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+          </div>
+          <div class="card-text text-center d-none d-md-block">
+            <div class="row justify-content-center align-items-center g-2">
+              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-5">
+    <div class="col-sm-12 col-md-12 col-lg-12 mt-5">
+      <div class="card">
+        <div class="card-body text-center">
+          <h4 class="fs-1 card-title">Comments</h4>
+          <div class="card-text text-center d-block d-md-none">
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+          </div>
+          <div class="card-text text-center d-none d-md-block">
+            <div class="row justify-content-center align-items-center g-2">
+              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+

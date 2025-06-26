@@ -1,7 +1,8 @@
 .footer {
     background-color: #212529;
     text-align: center;
-    p {
-        color: white;
-    }
+    height: 10vh; 
+}
+p {
+    color: white;
 }

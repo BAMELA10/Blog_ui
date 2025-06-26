@@ -6,6 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  /* 
+  Get the important data from the API And show the statistics of this data
+
+  -- Get the number of posts
+  -- Get the number of comments
+  -- Get the number of suscribers
+  */
+  
+  
 
   constructor() { }
 
