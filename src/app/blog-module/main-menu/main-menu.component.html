@@ -1,17 +1,21 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-sm-12 col-md-12 col-lg-12 mt-5">
-      <div class="card">
+<div class="container-fluid">
+  <div class="row mb-5">
+    <app-navbar [BlogId]="BlogId"></app-navbar>
+  </div>
+  <div class="container mt-5 mb-5">
+    <div class="row justify-content-center ">
+    <div class="col-sm-10 col-md-12 col-lg-12 mt-5">
+      <div class="card rounded-0">
         <div class="card-body text-center">
-          <h4 class="fs-1 card-title">Test</h4>
+          <h4 class="fs-3 card-title">Test</h4>
           <div class="card-text text-center d-block d-md-none">
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbComment }} Comments</p>
           </div>
           <div class="card-text text-center d-none d-md-block">
             <div class="row justify-content-center align-items-center g-2">
-              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
-              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+              <div class="col-md-4 fs-6">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-6">{{ nbComment }} Comments</div>
             </div>
           </div>
         </div>
@@ -20,57 +24,81 @@
   </div>
 
 
-  <div class="row mt-5">
-    <div
-      class="col-sm-12 col-md-12 col-lg-6 mt-2"
-      *ngFor="let items of menubtn"
-    >
-      <a
-        name=""
-        id=""
-        class="btn btn-outline-dark rounded-0"
-        [routerLink]="[items.link]"
-        routerLinkActive="active"
-        role="button"
-      >
+  <div class="row mt-5 justify-content-between mx-auto p-2">
+    <!-- <div class=" "> -->
+      <a name="" id="" class="col-sm-10 col-md-6 col-lg-2 mt-2 btn btn-outline-dark rounded-0 " [routerLink]="['blog, posts']" routerLinkActive="active" role="button" >
         <div class="icon">
-          <mat-icon>{{ items.icon }}</mat-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" height="83px" viewBox="0 -960 960 960" width="100px" fill="#1f1f1f">
+            <path d="M120-120v-720h720v720H120Zm640-143H200v78h560v-78Zm-560-41h560v-78H200v78Zm0-129h560v-327H200v327Zm0 170v78-78Zm0-41v-78 78Zm0-129v-327 327Zm0 51v-51 51Zm0 119v-41 41Z"/>
+          </svg>
         </div>
-        <h2 class="fs-3 align-middle">{{ items.name }}</h2>
+        <h2 class="fs-6 align-middle">Posts</h2>
       </a>
-    </div>
+    <!-- </div> -->
+
+    <!-- <div class="col-sm-12 col-md-10 col-lg-3 mt-2 "> -->
+      <a name="" id="" class="col-sm-10 col-md-6 col-lg-2 mt-2 btn btn-outline-dark rounded-0" [routerLink]="['blog, posts']" routerLinkActive="active" role="button" >
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" height="83px" viewBox="0 -960 960 960" width="100px" fill="#1f1f1f">
+            <path d="M700-140v-680q28 0 44 14.5t16 45.5v560q0 31-16 45.5T700-140ZM140-80q-24.75 0-42.37-17.63Q80-115.25 80-140v-680q0-24.75 17.63-42.38Q115.25-880 140-880h400q24.75 0 42.38 17.62Q600-844.75 600-820v680q0 24.75-17.62 42.37Q564.75-80 540-80H140Zm720-121v-557q20 0 30 8.5t10 31.5v477q0 23-10 31.5t-30 8.5Zm-720 61h400v-680H140v680Zm0-680v680-680Z"/>
+          </svg>
+        </div>
+        <h2 class="fs-6 align-middle">Pages</h2>
+      </a>
+    <!-- </div> -->
+
+    <!-- <div class="col-sm-12 col-md-10 col-lg-3 mt-2 "> -->
+      <a name="" id="" class=" col-sm-10 col-md-6 col-lg-2 mt-2 btn btn-outline-dark rounded-0" [routerLink]="['blog, posts']" routerLinkActive="active" role="button" >
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" height="83px" viewBox="0 -960 960 960" width="100px" fill="#1f1f1f">
+            <path d="M523-547v-273H140v600l74-80h606v-520H716v273l-96-50-97 50ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm60-740v520-520Z"/>
+          </svg>
+        </div>
+        <h2 class="fs-6 align-middle">Comments</h2>
+      </a>
+    <!-- </div> -->
+    <!-- <div class="col-sm-12 col-md-10 col-lg-3 mt-2 "> -->
+      <a name="" id="" class=" col-sm-10 col-md-6 col-lg-2 mt-2 btn btn-outline-dark rounded-0" [routerLink]="['blog, posts']" routerLinkActive="active" role="button" >
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" height="83px" viewBox="0 -960 960 960" width="100px" fill="#1f1f1f">
+            <path d="M222-255q63-44 125-67.5T480-346q71 0 133.5 23.5T739-255q44-54 62.5-109T820-480q0-145-97.5-242.5T480-820q-145 0-242.5 97.5T140-480q0 61 19 116t63 109Zm257.81-195q-57.81 0-97.31-39.69-39.5-39.68-39.5-97.5 0-57.81 39.69-97.31 39.68-39.5 97.5-39.5 57.81 0 97.31 39.69 39.5 39.68 39.5 97.5 0 57.81-39.69 97.31-39.68 39.5-97.5 39.5Zm.66 370Q398-80 325-111.5t-127.5-86q-54.5-54.5-86-127.27Q80-397.53 80-480.27 80-563 111.5-635.5q31.5-72.5 86-127t127.27-86q72.76-31.5 155.5-31.5 82.73 0 155.23 31.5 72.5 31.5 127 86t86 127.03q31.5 72.53 31.5 155T848.5-325q-31.5 73-86 127.5t-127.03 86Q562.94-80 480.47-80Zm-.47-60q55 0 107.5-16T691-212q-51-36-104-55t-107-19q-54 0-107 19t-104 55q51 40 103.5 56T480-140Zm0-370q34 0 55.5-21.5T557-587q0-34-21.5-55.5T480-664q-34 0-55.5 21.5T403-587q0 34 21.5 55.5T480-510Zm0-77Zm0 374Z"/>
+          </svg>
+        </div>
+        <h2 class="fs-6 align-middle">Profile</h2>
+      </a>
+    <!-- </div> -->
   </div>
 
   <div class="row justify-content-center">
     <div class="col-sm-12 col-md-12 col-lg-6 mt-5">
-      <div class="card">
+      <div class="card rounded-0">
         <div class="card-body text-center">
-          <h4 class="fs-1 card-title">Post</h4>
+          <h4 class="fs-3 card-title">Post</h4>
           <div class="card-text text-center d-block d-md-none">
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbComment }} Comments</p>
           </div>
           <div class="card-text text-center d-none d-md-block">
             <div class="row justify-content-center align-items-center g-2">
-              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
-              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+              <div class="col-md-4 fs-6">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-6">{{ nbComment }} Comments</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-6 mt-5">
-      <div class="card">
+      <div class="card rounded-0">
         <div class="card-body text-center">
-          <h4 class="fs-1 card-title">Pages</h4>
+          <h4 class="fs-3 card-title">Pages</h4>
           <div class="card-text text-center d-block d-md-none">
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbComment }} Comments</p>
           </div>
           <div class="card-text text-center d-none d-md-block">
             <div class="row justify-content-center align-items-center g-2">
-              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
-              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+              <div class="col-md-4 fs-6">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-6">{{ nbComment }} Comments</div>
             </div>
           </div>
         </div>
@@ -80,24 +108,28 @@
 
   <div class="row justify-content-center mb-5">
     <div class="col-sm-12 col-md-12 col-lg-12 mt-5">
-      <div class="card">
+      <div class="card rounded-0">
         <div class="card-body text-center">
-          <h4 class="fs-1 card-title">Comments</h4>
+          <h4 class="fs-3 card-title">Comments</h4>
           <div class="card-text text-center d-block d-md-none">
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbPost }} Posts</p>
-            <p class="col-xl-12 col-sm-12 fs-3">{{ nbComment }} Comments</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbPost }} Posts</p>
+            <p class="col-xl-12 col-sm-12 fs-6">{{ nbComment }} Comments</p>
           </div>
           <div class="card-text text-center d-none d-md-block">
             <div class="row justify-content-center align-items-center g-2">
-              <div class="col-md-4 fs-3">{{ nbPost }} Posts</div>
-              <div class="col-md-4 fs-3">{{ nbComment }} Comments</div>
+              <div class="col-md-4 fs-6">{{ nbPost }} Posts</div>
+              <div class="col-md-4 fs-6">{{ nbComment }} Comments</div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
+  </div>
+  <div class="row mb-5" *ngIf="showFooter">
+    <app-footer></app-footer>
+  </div>
 </div>
+
 
 

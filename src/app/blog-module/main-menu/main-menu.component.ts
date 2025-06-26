@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApicallService } from 'src/app/core/apicall.service';
 import { Post } from 'src/app/interface/post';
@@ -11,22 +11,22 @@ import { map } from 'rxjs';
 })
 export class MainMenuComponent implements OnInit {
 
-  public menubtn = [
-    { name: 'Posts', link: '/post', icon: 'article' },
+ /*  public menubtn = [
+    { name: 'Posts', link: '/post', icon: '' },
     { name: 'Pages', link: '/pages', icon: 'web_stories' },
     { name: 'Comments', link: '/comments', icon: 'comment_bank' },
     { name: 'Profile', link: '/me', icon: 'person' }
-  ]
+  ] */
   public nbPost = 12;
   public nbComment = 10;
-
+  public showFooter = false
+  public BlogId : string|null = this.route.snapshot.  paramMap.get('id');;
   constructor(private route:ActivatedRoute, private apiCallservice: ApicallService) { }
 
   ngOnInit(): void {
-    let BlogId = this.route.snapshot.paramMap.get('id');
     let array = [] ;
-    if (!BlogId) {
-      this.apiCallservice.getAllPost(BlogId)
+    if (this.BlogId) {
+      this.apiCallservice.getAllPost(this.BlogId)
       .pipe(
         map(res => {
           array = res["items"];
@@ -34,8 +34,13 @@ export class MainMenuComponent implements OnInit {
       )
       .subscribe();
       this.nbPost = array.length;
-
     }
   }
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const footerVisible = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
+    this.showFooter = footerVisible;
+}
 
 }
