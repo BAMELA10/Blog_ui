@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { PostComponent } from './post/post.component';
+import { AddPostComponent } from './Add-post/Add-post.component';
+
+const routes: Routes = [
+  {  
+    path: '', component: PostComponent, // Links get all posts of blog
+  },
+  {
+    path: "add", component: AddPostComponent // Link for add a New Post
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class PostRoutingModule { }
+//export const MyRouteRoutes = RouterModule.forChild(routes);
