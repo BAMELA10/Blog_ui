@@ -14,7 +14,7 @@ import { GetPostComponent } from './GetPost/GetPost.component';
   declarations: [
     PostComponent,
     AddPostComponent,
-    GetPostComponent
+    GetPostComponent,
     //CKEditorComponent
   ],
   imports: [

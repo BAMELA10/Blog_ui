@@ -13,15 +13,25 @@ import { HostListener } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
+
   public PageTitle = " List of Posts";
   public ListOfPost : Post[] = [];
   public BlogId : string|null = this.route.snapshot.paramMap.get('id');
+  public PostId! :string;
   public showFooter : boolean = false;
+
 
   constructor(private apiCallService : ApicallService, private route: ActivatedRoute) { }
 
+  ngOnInit(): void {
+    this.Init();
+  }
 
-  ngOnInit() {
+  refresh() {
+    this.Init();
+  }
+
+  Init() {
     let array: any[] = [];
     this.apiCallService.getAllPost(this.BlogId)
     .pipe(
@@ -37,10 +47,26 @@ export class PostComponent implements OnInit {
         }
       )
     )
-    .subscribe()
+    .subscribe();
     this.ListOfPost = array;
   }
 
+  
+
+  DeletePost() {
+    console.log(this.PostId)
+    this.apiCallService.DeletePost(this.BlogId, this.PostId)
+    .subscribe({
+      complete() {
+        window.location.reload();
+      }
+    });
+    
+  }
+  getPostId(postId:string) {
+    this.PostId = postId;
+    //throw new Error('Method not implemented.');
+  }
   @HostListener('window:scroll', [])
     onScroll(): void {
       const footerVisible = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
