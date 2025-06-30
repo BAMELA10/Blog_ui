@@ -121,7 +121,11 @@ export class AddPostComponent implements OnInit{
   ngOnInit(): void {
     this.formPostBuilder.get('title')?.setValue(this.titleOfcontent);
     this.formPostBuilder.get('content')?.setValue(this.data);
-    this.formPostBuilder.get('title')?.disable();
+    if(this.titleOfcontent) {
+      console.log(1);
+      this.formPostBuilder.get('title')?.disable();
+    }
+    
   }
 
   get title():any {
