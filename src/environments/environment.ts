@@ -8,7 +8,7 @@ export const environment = {
   apiServiceOnline: "https://www.googleapis.com/blogger/v3/blogs/",
   apiServiceOffline: "http://localhost:3001/blogs/",
   textEditorLicence : "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NTE3NTk5OTksImp0aSI6ImQwMmVmZmI3LWE5NzktNDNmOS05NjVmLWYyZjZmNjA1ZWNlOSIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjQzYmMwOWMyIn0.CqdYVH9a9ZohGcTpMJgK1WeI1K_lDAUhHpFJVJWabj-011Lrx6DB6gxipiBtgn21ensGHXe2QO7wxIWO-9zhRA",
-  tokenAPI: ""
+  tokenAPI: "ya29.a0AS3H6NzWN-OLFhVZjp4EfAJekO1n5PgDWm5NfrJJj-N41BzjZf8bHIQoCHXgeUhGRfqeD8wWdWVWGoNEZ1daUbOtWqOw32g1oYQ0_WJUL_GqmjnA4NRemkT2hksapSTzFAPWpnhNnnYID0jxaS_sMmjiuxDqyRya5aYXedLe1gaCgYKAYMSARQSFQHGX2MiDM45kX5aDUbs6y_TZ-athQ0177"
 };
 
 /*

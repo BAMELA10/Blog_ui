@@ -1,19 +1,19 @@
 <!-- <app-navbar></app-navbar> -->
 <div class="container mt-5">
   <p class="display-2 text-center mt-5">
-    Publish Another Post
+    {{titlePage}}
   </p>
   <div class="row justify-content-center">  
     <form [formGroup]="formPostBuilder" (ngSubmit)="savePost()">
       <div class="card rounded-0 mt-5 mb-3">
         <div class="card-body d-flex">
           <div *ngIf="title.invalid"> Name is too short. </div>
-          <input formControlName="title" type="text" name="title" class="form-control rounded-0" id="" placeholder="Title">
-          <button class="btn btn-outline-dark rounded-0" type="submit">Publish</button>
-          <button class="btn btn-outline-danger rounded-0" (click)="savePost()" >Cancel</button>
+          <input formControlName="title"type="text" name="title" class="form-control rounded-0" id="" placeholder="Title">
+          <button class="btn btn-outline-dark rounded-0" type="submit" [disabled]="readOnly">Publish</button>
+          <button class="btn btn-outline-danger rounded-0" (click)="savePost()" *ngIf="!readOnly">Cancel</button>
         </div>
       </div>
-      <ckeditor formControlName="content" [editor]="Editor" [config]="config" data='<h1><strong>Title of post</strong></h1> <p>Content of Post </p>' tagName="textarea"></ckeditor>
+      <ckeditor formControlName="content" [disabled]="readOnly" [editor]="Editor" [config]="config" [data]='data' tagName="textarea"></ckeditor>
     </form>
   </div>
 </div>

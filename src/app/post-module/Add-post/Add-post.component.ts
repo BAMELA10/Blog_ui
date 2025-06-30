@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewEncapsulation, OnChanges, SimpleChanges } from '@angular/core';
 import { ClassicEditor, Essentials, Paragraph, Bold, Italic, SimpleUploadAdapter,
   Link, Image, Table, ImageUpload,
   Heading,List,IndentBlock,
@@ -9,19 +9,20 @@ import { ClassicEditor, Essentials, Paragraph, Bold, Italic, SimpleUploadAdapter
   Watchdog,
   HeadingButtonsUI,
   ParagraphButtonUI,ImageUploadEditing,ImageUploadUI,ImageUploadProgress,
-  EditorConfig,Indent,
-  FontSize,Autoformat,
-  EditorWatchdog
+  EditorConfig,Indent,FontSize,Autoformat,
+  EditorWatchdog,
+  Input
  } from 'ckeditor5';
 import { environment } from 'src/environments/environment';
 import { ApicallService } from 'src/app/core/apicall.service';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
 import { map, Observable, Subscriber } from 'rxjs';
 import { error } from 'console';
 import { Post } from 'src/app/interface/post';
-
+import { Input as InputContent } from '@angular/core';
+import { state } from '@angular/animations';
 function generateList() {
   let list = []
   let size = 60
@@ -49,14 +50,19 @@ export function cleanedData<T>(data:any, keys: (keyof T)[]): T {
 
 })
 
-export class AddPostComponent {
+export class AddPostComponent implements OnInit{
 
-  data ='<h1><strong>Title of post</strong></h1> <p>Content of Post </p>';
+  @InputContent() readOnly!: boolean;
+  @InputContent() data = '<h1><strong>Title of post</strong></h1> <p>Content of Post </p>';
+  @InputContent() titleOfcontent? : string;
+  @InputContent() titlePage? : string = "Publish Another Post";
+
   tagName = 'Textarea';
-  formPostBuilder = this.formBuilder.group({
-    title: new FormControl('', Validators.minLength(3)),
-    content: '',
-  })
+  formPostBuilder : FormGroup = this.formBuilder.group({
+      title: [{ value: this.titleOfcontent }, [Validators.minLength(3)]],
+      content: '',
+    })
+  
   public Editor = ClassicEditor;
   public config: EditorConfig = {
     licenseKey : environment.textEditorLicence,
@@ -111,6 +117,12 @@ export class AddPostComponent {
   };
 
   constructor(private apicallService:ApicallService, private formBuilder: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.formPostBuilder.get('title')?.setValue(this.titleOfcontent);
+    this.formPostBuilder.get('content')?.setValue(this.data);
+    this.formPostBuilder.get('title')?.disable();
+  }
 
   get title():any {
     return this.formPostBuilder.get('title');

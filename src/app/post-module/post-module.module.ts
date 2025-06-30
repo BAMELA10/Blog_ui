@@ -6,13 +6,15 @@ import { PostRoutingModule } from './post-module.routing';
 import { CKEditorComponent, CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { GetPostComponent } from './GetPost/GetPost.component';
 
 
 
 @NgModule({
   declarations: [
     PostComponent,
-    AddPostComponent
+    AddPostComponent,
+    GetPostComponent
     //CKEditorComponent
   ],
   imports: [

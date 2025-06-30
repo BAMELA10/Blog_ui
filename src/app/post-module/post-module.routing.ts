@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PostComponent } from './post/post.component';
 import { AddPostComponent } from './Add-post/Add-post.component';
+import { GetBlogComponent } from '../blog-module/GetBlog/GetBlog.component';
+import { GetPostComponent } from './GetPost/GetPost.component';
 
 const routes: Routes = [
   {  
@@ -9,6 +11,9 @@ const routes: Routes = [
   },
   {
     path: "add", component: AddPostComponent // Link for add a New Post
+  },
+  {
+    path: ":postId", component: GetPostComponent // Get a specific post 
   }
 ];
 

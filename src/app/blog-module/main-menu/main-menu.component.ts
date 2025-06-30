@@ -20,7 +20,7 @@ export class MainMenuComponent implements OnInit {
   public nbPost = 12;
   public nbComment = 10;
   public showFooter = false
-  public BlogId : string|null = this.route.snapshot.  paramMap.get('id');;
+  public BlogId : string|null = this.route.snapshot.paramMap.get('id');
   constructor(private route:ActivatedRoute, private apiCallservice: ApicallService) { }
 
   ngOnInit(): void {
