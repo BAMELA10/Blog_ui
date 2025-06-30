@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row mb-5">
+    <app-navbar [BlogId]="BlogId"></app-navbar>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row mt-5">
+      <div class="display-2 mt-5"></div>
+      <app-Add-post *ngIf="showChlid" [readOnly]="readOnly" [data]="data" [titleOfcontent]="post.title" [titlePage]="title" ></app-Add-post>
+      <div class="table-responsive mt-5 mb-5 col-lg-6 col-md-6">
+        <table class="table table-light table-bordered border-dark mt-5 mb-5" >
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Author </th>
+              <th scope="col">Published</th>
+              <th scope="col">Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-group-divider">
+              <td>{{post.author.displayName}}</td>
+              <td> {{post.published}} </td>
+              <td> {{post.updated}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="row mb-5" *ngIf="showFooter" ><!--  -->
+    <app-footer></app-footer>
+  </div>
+</div>

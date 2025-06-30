@@ -1,5 +1,40 @@
-<p>
-  post works!
-</p>
-<router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row mb-5">
+    <app-navbar [BlogId]="BlogId"></app-navbar>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row mt-5">
+      <div class="display-2 mt-5">All Posts</div>
+      <table class="table table-light table-striped-columns table-hover mt-5 fs-6">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Updated</th>
+            <th scope="col">Published</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let post of ListOfPost">
+            <td><strong>{{post.title}}</strong></td>
+            <td>{{post.author.displayName}}</td>
+            <td>{{post.published}}</td>
+            <td>{{post.updated}}</td>
+            <td class="d-flex">
+              <a class="btn btn-outline-dark rounded-0" [routerLink]="[post.id]">View</a>
+              <a class="btn btn-outline-success rounded-0" >Updated</a>
+              <a class="btn btn-outline-danger rounded-0" >Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mb-5" *ngIf="showFooter" ><!--  -->
+    <app-footer></app-footer>
+  </div>
+</div>
 

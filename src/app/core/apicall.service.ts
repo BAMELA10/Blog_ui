@@ -22,7 +22,7 @@ export class ApicallService {
   })
   
 
-  public newPost(post:any): Observable<Post>{
+  public newPost(post:any): Observable<Post> {
     return this.http.post<Post>(this.Uri +"blogs/"+ this.blogId + "/posts/" , post, { headers: this.headers, params: this.params});
   }
 
@@ -32,8 +32,15 @@ export class ApicallService {
   }
 
   public getAllPost(BlogId:string|null):Observable<any> {
-    return this.http.get<any>(this.Uri + "blogs/" + BlogId + "posts", { headers: this.headers})
+    let terminaison = "blogs/" + BlogId + "/posts";
+    return this.http.get<any>(this.Uri + terminaison, { headers: this.headers})
   }
+
+  public getPost(BlogId:string|null, postId:string|null): Observable<Post> {
+    let terminaison = "blogs/" + BlogId + "/posts" + "/" + postId;
+    return this.http.get<any>(this.Uri + terminaison, { headers: this.headers})
+  }
+
   public getAllPages() {
     //
   }
