@@ -49,7 +49,8 @@ export class ApicallService {
     //
   }
 
-  public getAllComment() {
-    //
+  public getAllCommentForPost(BlogId:string|null, PostId: string):Observable<any>{
+    let terminaison = "blogs/" + BlogId + "/posts" + "/" + PostId + "/comments";
+    return this.http.get<any>(this.Uri + terminaison, { headers: this.headers})
   }
 }
