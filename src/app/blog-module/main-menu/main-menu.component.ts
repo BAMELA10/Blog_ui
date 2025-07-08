@@ -17,25 +17,46 @@ export class MainMenuComponent implements OnInit {
     { name: 'Comments', link: '/comments', icon: 'comment_bank' },
     { name: 'Profile', link: '/me', icon: 'person' }
   ] */
-  public nbPost = 12;
-  public nbComment = 10;
+  public nbPost!: number;
+  public nbComment!: number;
   public showFooter = false
   public BlogId : string|null = this.route.snapshot.paramMap.get('id');
   constructor(private route:ActivatedRoute, private apiCallservice: ApicallService) { }
 
   ngOnInit(): void {
-    let array = [] ;
+    let array: any[] = [];
+    let arrayComent: any[] = [];
+    let commentNumber = 0;
+
+    // Get number of post for this Blog
     if (this.BlogId) {
       this.apiCallservice.getAllPost(this.BlogId)
       .pipe(
         map(res => {
           array = res["items"];
+          this.nbPost = array.length;
+
+          // Get number of all comments for this Blog
+          if(this.nbPost != 0){
+            array.forEach(post => {
+              let id =  post["id"] || post.id;
+              this.apiCallservice.getAllCommentForPost(this.BlogId,id)
+              .pipe(
+                map(res => {
+                  arrayComent = res["items"];
+                  commentNumber += arrayComent.length;
+                  this.nbComment = commentNumber;
+                })
+              )
+              .subscribe()
+            })
+          }
         })
       )
       .subscribe();
-      this.nbPost = array.length;
     }
   }
+
 
   @HostListener('window:scroll', [])
   onScroll(): void {
