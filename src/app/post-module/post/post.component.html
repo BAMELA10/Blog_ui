@@ -26,7 +26,7 @@
             <td>{{post.updated}}</td>
             <td class="d-flex">
               <a class="btn btn-outline-dark rounded-0" [routerLink]="[post.id]">View</a>
-              <a class="btn btn-outline-success rounded-0">Updated</a>
+              <a class="btn btn-outline-success rounded-0" [routerLink]="[post.id, '/update']">Updated</a>
               <a class="btn btn-outline-danger rounded-0" (click)="getPostId(post.id)" data-bs-toggle="modal" data-bs-target="#DeleteModal" >Delete</a>
               <!-- <app-modal-update-post  [BlogId]="BlogId" [postId]="post.id"></app-modal-update-post> -->
             </td>

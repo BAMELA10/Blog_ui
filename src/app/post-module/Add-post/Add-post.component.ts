@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, OnInit, ViewEncapsulation, OnChanges, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ClassicEditor, Essentials, Paragraph, Bold, Italic, SimpleUploadAdapter,
   Link, Image, Table, ImageUpload,
   Heading,List,IndentBlock,
@@ -57,11 +58,14 @@ export class AddPostComponent implements OnInit{
   @InputContent() titleOfcontent? : string;
   @InputContent() titlePage? : string = "Publish Another Post";
 
+  public BlogId = this.router.snapshot.paramMap.get('id');
+  public PostId = this.router.snapshot.paramMap.get('postid');
+  
   tagName = 'Textarea';
   formPostBuilder : FormGroup = this.formBuilder.group({
       title: [{ value: this.titleOfcontent }, [Validators.minLength(3)]],
       content: '',
-    })
+  })
   
   public Editor = ClassicEditor;
   public config: EditorConfig = {
@@ -116,15 +120,31 @@ export class AddPostComponent implements OnInit{
     
   };
 
-  constructor(private apicallService:ApicallService, private formBuilder: FormBuilder) { }
+  constructor(private apicallService:ApicallService, private formBuilder: FormBuilder, private router : ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.formPostBuilder.get('title')?.setValue(this.titleOfcontent);
-    this.formPostBuilder.get('content')?.setValue(this.data);
-    if(this.titleOfcontent) {
-      console.log(1);
-      this.formPostBuilder.get('title')?.disable();
+    if(!this.PostId) {
+      this.formPostBuilder.get('title')?.setValue(this.titleOfcontent);
+      this.formPostBuilder.get('content')?.setValue(this.data);
+      if(this.titleOfcontent) {
+        this.formPostBuilder.get('title')?.disable();
+      }
     }
+    else
+    {
+      let post: any = {};
+      this.apicallService.getPost(this.BlogId, this.PostId)
+      .pipe(
+        map(res => {
+          const key :(keyof Post)[] = ['id', 'title', 'content', 'author', 'published','updated','blog']
+          post = cleanedData<Post>(res, key);
+          this.formPostBuilder.get('title')?.setValue(post.title);
+          this.formPostBuilder.get('content')?.setValue(post.content);
+        })
+      )
+      .subscribe()
+    }
+    
     
   }
 
@@ -137,34 +157,32 @@ export class AddPostComponent implements OnInit{
 
   
   public savePost(){
-    let data = this.formPostBuilder.value;
-    return this.apicallService.newPost(data)
-    .pipe(
-      map(res => {
-        let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
-        return cleanedData<Post>(res, postKeys);
-      })
-    )
-    .subscribe(
-      {
-        next(data) {
-          console.log(data)
-        },
-        error(err) {
-          console.log(err)
-        }
-      }
-    )
+    if(!this.PostId)
+    {
+      let data = this.formPostBuilder.value;
+      return this.apicallService.newPost(data)
+      .pipe(
+        map(res => {
+          let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
+          return cleanedData<Post>(res, postKeys);
+        })
+      )
+      .subscribe()
+    }
+    else
+    {
+      let data = this.formPostBuilder.value;
+      return this.apicallService.UpdatePost(this.BlogId, this.PostId, data)
+      .pipe(
+        map(res => {
+          let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
+          return cleanedData<Post>(res, postKeys);
+        })
+      )
+      .subscribe()
+    }
     
-    
-    /* .then(
-      res => {
-        console.log("success");
-        console.log(res);
-      }
-    )
-    
-    ); */
+
   }
 
 

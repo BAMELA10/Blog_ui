@@ -15,7 +15,6 @@ import { GetPostComponent } from './GetPost/GetPost.component';
     PostComponent,
     AddPostComponent,
     GetPostComponent,
-    //CKEditorComponent
   ],
   imports: [
     CommonModule,
