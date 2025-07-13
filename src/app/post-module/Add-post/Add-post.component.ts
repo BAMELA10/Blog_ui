@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, OnInit, ViewEncapsulation, OnChanges, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClassicEditor, Essentials, Paragraph, Bold, Italic, SimpleUploadAdapter,
   Link, Image, Table, ImageUpload,
   Heading,List,IndentBlock,
@@ -53,16 +53,18 @@ export function cleanedData<T>(data:any, keys: (keyof T)[]): T {
 
 export class AddPostComponent implements OnInit{
 
-  @InputContent() readOnly!: boolean;
+  @InputContent() readOnly: boolean = false;
   @InputContent() data = '<h1><strong>Title of post</strong></h1> <p>Content of Post </p>';
   @InputContent() titleOfcontent? : string;
-  @InputContent() titlePage? : string = "Publish Another Post";
+  @InputContent() titlePage?: string = "Publish Another Post";
+
+  constructor(private apicallService:ApicallService, private formBuilder: FormBuilder, private router : ActivatedRoute, private navigator: Router) { }
 
   public BlogId = this.router.snapshot.paramMap.get('id');
-  public PostId = this.router.snapshot.paramMap.get('postid');
+  private _PostId = this.router.snapshot.paramMap.get('postId');
   
-  tagName = 'Textarea';
-  formPostBuilder : FormGroup = this.formBuilder.group({
+  public tagName = 'Textarea';
+  public formPostBuilder : FormGroup = this.formBuilder.group({
       title: [{ value: this.titleOfcontent }, [Validators.minLength(3)]],
       content: '',
   })
@@ -120,10 +122,12 @@ export class AddPostComponent implements OnInit{
     
   };
 
-  constructor(private apicallService:ApicallService, private formBuilder: FormBuilder, private router : ActivatedRoute) { }
+  get(): string|null {
+    return this._PostId? this._PostId : null;
+  }
 
   ngOnInit(): void {
-    if(!this.PostId) {
+    if(!this._PostId) {
       this.formPostBuilder.get('title')?.setValue(this.titleOfcontent);
       this.formPostBuilder.get('content')?.setValue(this.data);
       if(this.titleOfcontent) {
@@ -133,7 +137,7 @@ export class AddPostComponent implements OnInit{
     else
     {
       let post: any = {};
-      this.apicallService.getPost(this.BlogId, this.PostId)
+      this.apicallService.getPost(this.BlogId, this._PostId)
       .pipe(
         map(res => {
           const key :(keyof Post)[] = ['id', 'title', 'content', 'author', 'published','updated','blog']
@@ -154,35 +158,46 @@ export class AddPostComponent implements OnInit{
   get content():any {
     return this.formPostBuilder.get('content');
   }
-
   
   public savePost(){
-    if(!this.PostId)
+    let navigator = this.navigator;
+    let BlogId = this.BlogId
+    if(!this._PostId)
     {
       let data = this.formPostBuilder.value;
-      return this.apicallService.newPost(data)
+      this.apicallService.newPost(data)
       .pipe(
         map(res => {
           let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
           return cleanedData<Post>(res, postKeys);
         })
       )
-      .subscribe()
+      .subscribe({
+        next() {
+          navigator.navigateByUrl(`blog/${BlogId}/posts`);
+        }
+      }
+      )
     }
     else
     {
       let data = this.formPostBuilder.value;
-      return this.apicallService.UpdatePost(this.BlogId, this.PostId, data)
+      
+      this.apicallService.UpdatePost(this.BlogId, this._PostId, data)
       .pipe(
         map(res => {
           let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
           return cleanedData<Post>(res, postKeys);
         })
       )
-      .subscribe()
+      .subscribe({
+        next() {
+          navigator.navigateByUrl(`blog/${BlogId}/posts`);
+        }
+      })
+      
     }
     
-
   }
 
 
