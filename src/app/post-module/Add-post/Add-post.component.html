@@ -10,7 +10,7 @@
           <div *ngIf="title.invalid"> Name is too short. </div>
           <input formControlName="title"type="text" name="title" class="form-control rounded-0" id="" placeholder="Title">
           <button class="btn btn-outline-dark rounded-0" type="submit" [disabled]="readOnly">Publish</button>
-          <button class="btn btn-outline-danger rounded-0" (click)="savePost()" *ngIf="!readOnly">Cancel</button>
+          <a class="btn btn-outline-danger rounded-0" *ngIf="!readOnly" [routerLink]="['/blog', BlogId, 'posts']">Cancel</a>
         </div>
       </div>
       <ckeditor formControlName="content" [disabled]="readOnly" [editor]="Editor" [config]="config" [data]='data' tagName="textarea"></ckeditor>

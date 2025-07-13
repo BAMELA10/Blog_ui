@@ -17,6 +17,9 @@ const routes: Routes = [
   },
   {
     path: ":postId/delete", component: PostComponent // Get a specific post 
+  },
+  {
+    path:":postId/update", component: AddPostComponent // Update a specific post
   }
 ];
 

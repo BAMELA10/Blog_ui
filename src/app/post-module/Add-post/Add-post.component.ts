@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, OnInit, ViewEncapsulation, OnChanges, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClassicEditor, Essentials, Paragraph, Bold, Italic, SimpleUploadAdapter,
   Link, Image, Table, ImageUpload,
   Heading,List,IndentBlock,
@@ -52,16 +53,21 @@ export function cleanedData<T>(data:any, keys: (keyof T)[]): T {
 
 export class AddPostComponent implements OnInit{
 
-  @InputContent() readOnly!: boolean;
+  @InputContent() readOnly: boolean = false;
   @InputContent() data = '<h1><strong>Title of post</strong></h1> <p>Content of Post </p>';
   @InputContent() titleOfcontent? : string;
-  @InputContent() titlePage? : string = "Publish Another Post";
+  @InputContent() titlePage?: string = "Publish Another Post";
 
-  tagName = 'Textarea';
-  formPostBuilder : FormGroup = this.formBuilder.group({
+  constructor(private apicallService:ApicallService, private formBuilder: FormBuilder, private router : ActivatedRoute, private navigator: Router) { }
+
+  public BlogId = this.router.snapshot.paramMap.get('id');
+  private _PostId = this.router.snapshot.paramMap.get('postId');
+  
+  public tagName = 'Textarea';
+  public formPostBuilder : FormGroup = this.formBuilder.group({
       title: [{ value: this.titleOfcontent }, [Validators.minLength(3)]],
       content: '',
-    })
+  })
   
   public Editor = ClassicEditor;
   public config: EditorConfig = {
@@ -116,15 +122,33 @@ export class AddPostComponent implements OnInit{
     
   };
 
-  constructor(private apicallService:ApicallService, private formBuilder: FormBuilder) { }
+  get(): string|null {
+    return this._PostId? this._PostId : null;
+  }
 
   ngOnInit(): void {
-    this.formPostBuilder.get('title')?.setValue(this.titleOfcontent);
-    this.formPostBuilder.get('content')?.setValue(this.data);
-    if(this.titleOfcontent) {
-      console.log(1);
-      this.formPostBuilder.get('title')?.disable();
+    if(!this._PostId) {
+      this.formPostBuilder.get('title')?.setValue(this.titleOfcontent);
+      this.formPostBuilder.get('content')?.setValue(this.data);
+      if(this.titleOfcontent) {
+        this.formPostBuilder.get('title')?.disable();
+      }
     }
+    else
+    {
+      let post: any = {};
+      this.apicallService.getPost(this.BlogId, this._PostId)
+      .pipe(
+        map(res => {
+          const key :(keyof Post)[] = ['id', 'title', 'content', 'author', 'published','updated','blog']
+          post = cleanedData<Post>(res, key);
+          this.formPostBuilder.get('title')?.setValue(post.title);
+          this.formPostBuilder.get('content')?.setValue(post.content);
+        })
+      )
+      .subscribe()
+    }
+    
     
   }
 
@@ -134,37 +158,46 @@ export class AddPostComponent implements OnInit{
   get content():any {
     return this.formPostBuilder.get('content');
   }
-
   
   public savePost(){
-    let data = this.formPostBuilder.value;
-    return this.apicallService.newPost(data)
-    .pipe(
-      map(res => {
-        let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
-        return cleanedData<Post>(res, postKeys);
-      })
-    )
-    .subscribe(
-      {
-        next(data) {
-          console.log(data)
-        },
-        error(err) {
-          console.log(err)
+    let navigator = this.navigator;
+    let BlogId = this.BlogId
+    if(!this._PostId)
+    {
+      let data = this.formPostBuilder.value;
+      this.apicallService.newPost(data)
+      .pipe(
+        map(res => {
+          let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
+          return cleanedData<Post>(res, postKeys);
+        })
+      )
+      .subscribe({
+        next() {
+          navigator.navigateByUrl(`blog/${BlogId}/posts`);
         }
       }
-    )
+      )
+    }
+    else
+    {
+      let data = this.formPostBuilder.value;
+      
+      this.apicallService.UpdatePost(this.BlogId, this._PostId, data)
+      .pipe(
+        map(res => {
+          let postKeys: (keyof Post)[] = ['id','blog','title', 'content', 'author','published', 'updated'];
+          return cleanedData<Post>(res, postKeys);
+        })
+      )
+      .subscribe({
+        next() {
+          navigator.navigateByUrl(`blog/${BlogId}/posts`);
+        }
+      })
+      
+    }
     
-    
-    /* .then(
-      res => {
-        console.log("success");
-        console.log(res);
-      }
-    )
-    
-    ); */
   }
 
 

@@ -45,6 +45,12 @@ export class ApicallService {
     let terminaison = "blogs/" + BlogId + "/posts" + "/" + postId;
     return this.http.delete<any>(this.Uri + terminaison, { headers: this.headers})
   }
+
+
+  public UpdatePost(BlogId:string|null, postId:string|null, post:any): Observable<Post> {
+    let terminaison = "blogs/" + BlogId + "/posts" + "/" + postId;
+    return this.http.put<any>(this.Uri + terminaison, post, { headers: this.headers})
+  }
   public getAllPages() {
     //
   }
